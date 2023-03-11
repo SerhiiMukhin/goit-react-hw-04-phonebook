@@ -7,18 +7,24 @@ import { ContactList } from './ContactList/ContactList';
 import css from './App.module.css';
 
 const App = () => {
-
-// Видобуваємо контакти з localStorage
+  // Видобуваємо контакти з localStorage
 
   const getLocalContacts = () => {
-    const localContacts = localStorage.getItem('contacts')
-    const parsedContacts = JSON.parse(localContacts)
+    const localContacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(localContacts);
     return parsedContacts;
-  }
+  };
 
   // useState для контактів
 
-  const [contacts, setContacts] = useState(getLocalContacts() || []);
+  const [contacts, setContacts] = useState(getLocalContacts([]));
+
+  // useEffect для завантаження контактів з localStorage
+  useEffect(() => {
+    const localContacts = localStorage.getItem('contacts');
+    const parsedContacts = JSON.parse(localContacts);
+    setContacts(parsedContacts);
+  }, []);
 
   // useState для filter
 
